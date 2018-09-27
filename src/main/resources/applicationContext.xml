@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
+
+	<!-- spring配置文件 配置和核心业务逻辑有关的 -->
+
+	<context:component-scan base-package="com.yikai">
+		<context:exclude-filter type="annotation"
+			expression="org.springframework.stereotype.Controller" />
+	</context:component-scan>
+
+	<!-- 数据源 -->
+	<context:property-placeholder location="classpath:dbconfig.properties" />
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+		<property name="user" value="${user}"></property>
+		<property name="password" value="${password}"></property>
+		<property name="jdbcUrl" value="${url}"></property>
+		<property name="driverClass" value="${driver}"></property>
+	</bean>
+
+
+	<!--==================================== mybatis整合配置 ======================================================-->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="configuration" value="classpath:mybatis-config.xml"></property>
+		<property name="dataSource" ref="dataSource"></property>
+		<property name="mapperLocations" value="classpath:mapper/*.xml"></property>
+	</bean>
+
+
+	<!-- 配置扫描器，将mybatis接口的实现添加到IOC容器中 -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.yikai.crud.dao"></property>
+	</bean>
+	<!-- ======================================================================================================= -->
+
+
+	<!-- 事务控制 -->
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+	<!-- 开启基于注解的事物  建议重要的都是使用xml配置形式 -->
+	<aop:config>
+		<aop:pointcut expression="execution(* com.yikai.crud.service..*(..))" id="pointcut"/>
+		<aop:advisor advice-ref="advice" pointcut-ref="pointcut"/>
+	</aop:config>
+	<!-- 配置事务增强 -->
+	<tx:advice id="advice" transaction-manager="transactionManager">
+		<tx:attributes>
+		<!-- 所有的方法都是事务方法 -->
+			<tx:method name="*"/>
+			<!-- 以get开始的所有方法  并且进行了只读调优 -->
+			<tx:method name="get*" read-only="true"/>
+		</tx:attributes>
+	</tx:advice>
+	
+
+</beans>
