@@ -19,7 +19,7 @@
 
 
 
-		<!-- https://mvnrepository.com/artifact/org.mybatis.generator/mybatis-generator-core -->
+		<!-- 逆向工程 -->
 		<dependency>
 			<groupId>org.mybatis.generator</groupId>
 			<artifactId>mybatis-generator-core</artifactId>
@@ -27,7 +27,6 @@
 		</dependency>
 
 
-		<!-- https://mvnrepository.com/artifact/org.springframework/spring-webmvc -->
 		<!-- springmvc + spring -->
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -36,7 +35,6 @@
 		</dependency>
 
 		<!-- 返回json字符串的支持 -->
-		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-databind</artifactId>
@@ -44,7 +42,6 @@
 		</dependency>
 		
 		<!-- 添加JSR303数据校验  tomcat7及以上的可以直接导入;	tomcat7以下的需要给tomcat服务器lib包中替换标准的el-->
-		<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-validator -->
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-validator</artifactId>
@@ -53,7 +50,6 @@
 
 
 		<!-- spring Jdbc -->
-		<!-- https://mvnrepository.com/artifact/org.springframework/spring-jdbc -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-jdbc</artifactId>
@@ -61,7 +57,6 @@
 		</dependency>
 
 		<!-- spring单元测试模块 -->
-		<!-- https://mvnrepository.com/artifact/org.springframework/spring-test -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-test</artifactId>
@@ -71,7 +66,6 @@
 
 
 		<!-- spring切面 -->
-		<!-- https://mvnrepository.com/artifact/org.springframework/spring-aspects -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-aspects</artifactId>
@@ -79,7 +73,6 @@
 		</dependency>
 
 		<!-- MyBatis -->
-		<!-- https://mvnrepository.com/artifact/org.mybatis/mybatis -->
 		<dependency>
 			<groupId>org.mybatis</groupId>
 			<artifactId>mybatis</artifactId>
@@ -87,7 +80,6 @@
 		</dependency>
 
 		<!-- MyBatis整合spring适配包 -->
-		<!-- https://mvnrepository.com/artifact/org.mybatis/mybatis-spring -->
 		<dependency>
 			<groupId>org.mybatis</groupId>
 			<artifactId>mybatis-spring</artifactId>
@@ -95,13 +87,11 @@
 		</dependency>
 
 		<!-- 数据库连接池和驱动 -->
-		<!-- https://mvnrepository.com/artifact/c3p0/c3p0 -->
 		<dependency>
 			<groupId>c3p0</groupId>
 			<artifactId>c3p0</artifactId>
 			<version>0.9.1</version>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
@@ -110,14 +100,12 @@
 
 
 		<!-- jstl servlet-api junit -->
-		<!-- https://mvnrepository.com/artifact/jstl/jstl -->
 		<dependency>
 			<groupId>jstl</groupId>
 			<artifactId>jstl</artifactId>
 			<version>1.2</version>
 		</dependency>
 
-		<!-- https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api -->
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
@@ -125,7 +113,6 @@
 			<scope>provided</scope>
 		</dependency>
 
-		<!-- https://mvnrepository.com/artifact/junit/junit -->
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
