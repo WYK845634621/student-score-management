@@ -9,56 +9,66 @@
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
 
-	<!-- spring配置文件 配置和核心业务逻辑有关的 -->
-
+	
 	<context:component-scan base-package="com.yikai">
-		<context:exclude-filter type="annotation"
-			expression="org.springframework.stereotype.Controller" />
+		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
 	</context:component-scan>
 
-	<!-- 数据源 -->
-	<context:property-placeholder location="classpath:dbconfig.properties" />
-	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
-		<property name="user" value="${user}"></property>
-		<property name="password" value="${password}"></property>
+	<!-- spring配置文件，主要配置和文件业务逻辑有关的 -->
+	<!-- ================================数据源   事务控制===================================== -->
+	<context:property-placeholder location="classpath:dbconfig.properties"/>
+	
+	<bean id="pooledDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
 		<property name="jdbcUrl" value="${url}"></property>
 		<property name="driverClass" value="${driver}"></property>
+		<property name="user" value="${user}"></property>
+		<property name="password" value="${password}"></property>
 	</bean>
-
-
-	<!--==================================== mybatis整合配置 ======================================================-->
+	
+	
+	<!-- ========================配置和MyBatis的整合===================================== -->
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-		<property name="configuration" value="classpath:mybatis-config.xml"></property>
-		<property name="dataSource" ref="dataSource"></property>
+		<!-- 指定MyBatis全局配置文件 -->
+		<property name="configLocation" value="classpath:mybatis-config.xml"></property>
+		<property name="dataSource" ref="pooledDataSource"></property>
+		<!-- 指定mapper文件的位置 -->
 		<property name="mapperLocations" value="classpath:mapper/*.xml"></property>
 	</bean>
-
-
-	<!-- 配置扫描器，将mybatis接口的实现添加到IOC容器中 -->
+	
+	
+	<!-- 配置扫描器，将mybatis接口的实现加入到IOC容器中 -->
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
 		<property name="basePackage" value="com.yikai.crud.dao"></property>
 	</bean>
-	<!-- ======================================================================================================= -->
-
-
-	<!-- 事务控制 -->
-	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-		<property name="dataSource" ref="dataSource"></property>
+	
+	
+	<!-- 配置一个可以批量的sqlSession -->
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory"></constructor-arg>
+		<constructor-arg name="executorType" value="BATCH"></constructor-arg>
 	</bean>
-	<!-- 开启基于注解的事物  建议重要的都是使用xml配置形式 -->
+	
+	<!-- ================================================================================ -->
+	
+	
+	<!-- =============================事务控制============================================= -->
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="pooledDataSource"></property>
+	</bean>
+	<!-- 开启基于注解的事务，使用xml的形式，（必要主要的都是使用配置形式） -->
 	<aop:config>
-		<aop:pointcut expression="execution(* com.yikai.crud.service..*(..))" id="pointcut"/>
-		<aop:advisor advice-ref="advice" pointcut-ref="pointcut"/>
+		<aop:pointcut expression="execution(* com.yikai.crud.service..*(..))" id="txPoint"/>
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="txPoint"/>
 	</aop:config>
-	<!-- 配置事务增强 -->
-	<tx:advice id="advice" transaction-manager="transactionManager">
+	<!-- 配置事务增强，事务如何切入 -->
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
 		<tx:attributes>
-		<!-- 所有的方法都是事务方法 -->
 			<tx:method name="*"/>
-			<!-- 以get开始的所有方法  并且进行了只读调优 -->
 			<tx:method name="get*" read-only="true"/>
 		</tx:attributes>
 	</tx:advice>
 	
-
+	
+	<!-- spring的核心配置：数据源		整合mybatis		事务管理 -->
+	
 </beans>

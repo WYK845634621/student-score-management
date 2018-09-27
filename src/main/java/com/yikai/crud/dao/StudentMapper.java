@@ -19,6 +19,11 @@ public interface StudentMapper {
     List<Student> selectByExample(StudentExample example);
 
     Student selectByPrimaryKey(Integer studentId);
+    
+//    查询学生时显示专业
+    List<Student> selectByExampleWithMajor(StudentExample example);
+
+    Student selectByPrimaryKeyWithMajor(Integer studentId);
 
     int updateByExampleSelective(@Param("record") Student record, @Param("example") StudentExample example);
 

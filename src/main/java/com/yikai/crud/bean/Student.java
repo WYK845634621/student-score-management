@@ -14,8 +14,37 @@ public class Student {
     private Integer mId;
 
     private String clas;
+    
+//    查询学生时显示专业
+    private Major major;
+    
 
-    public Integer getStudentId() {
+    
+    public Student() {
+	super();
+}
+
+	public Student(Integer studentId, String studentName, String gender, String email, String grade, Integer mId,
+		String clas) {
+	super();
+	this.studentId = studentId;
+	this.studentName = studentName;
+	this.gender = gender;
+	this.email = email;
+	this.grade = grade;
+	this.mId = mId;
+	this.clas = clas;
+}
+
+	public Major getMajor() {
+		return major;
+	}
+
+	public void setMajor(Major major) {
+		this.major = major;
+	}
+
+	public Integer getStudentId() {
         return studentId;
     }
 

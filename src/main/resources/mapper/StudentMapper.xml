@@ -10,6 +10,22 @@
     <result column="m_id" jdbcType="INTEGER" property="mId" />
     <result column="clas" jdbcType="VARCHAR" property="clas" />
   </resultMap>
+ 
+<!-- 自定义resuleMap --> 
+  <resultMap type="com.yikai.crud.bean.Student" id="WithMajorResultMap">
+  	<id column="student_id" jdbcType="INTEGER" property="studentId" />
+    <result column="student_name" jdbcType="VARCHAR" property="studentName" />
+    <result column="gender" jdbcType="CHAR" property="gender" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="grade" jdbcType="VARCHAR" property="grade" />
+    <result column="m_id" jdbcType="INTEGER" property="mId" />
+    <result column="clas" jdbcType="VARCHAR" property="clas" />
+    <association property="major" javaType="com.yikai.crud.bean.Major">
+    	<id column="major_id" property="majorId"/>
+    	<result column="major_name" property="majorName"/>
+    </association>
+  </resultMap>
+  
   <sql id="Example_Where_Clause">
     <where>
       <foreach collection="oredCriteria" item="criteria" separator="or">
@@ -71,6 +87,37 @@
   <sql id="Base_Column_List">
     student_id, student_name, gender, email, grade, m_id, clas
   </sql>
+  
+  <sql id="WithMajorBase_Column_List">
+  	s.student_id, s.student_name, s.gender, s.email, s.grade, s.m_id, s.clas, m.major_id, m.major_name
+  </sql>
+  
+<!-- 自定义的两个查询方法 -->
+  <select id="selectByExampleWithMajor" resultMap="WithMajorResultMap">
+  	 select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="WithMajorBase_Column_List" />
+    FROM tbl_student s LEFT JOIN tbl_major m ON s.`m_id` = m.`major_id`
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  	
+  </select>
+  
+  <select id="selectByPrimaryKeyWithMajor" resultMap="WithMajorResultMap">
+  	 select 
+    <include refid="WithMajorBase_Column_List" />
+    FROM tbl_student s LEFT JOIN tbl_major m ON s.`m_id` = m.`major_id`
+    where student_id = #{studentId,jdbcType=INTEGER}
+  
+  </select>
+  
+  
   <select id="selectByExample" parameterType="com.yikai.crud.bean.StudentExample" resultMap="BaseResultMap">
     select
     <if test="distinct">

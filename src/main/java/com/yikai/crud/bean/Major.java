@@ -20,4 +20,16 @@ public class Major {
     public void setMajorName(String majorName) {
         this.majorName = majorName == null ? null : majorName.trim();
     }
+
+	public Major(Integer majorId, String majorName) {
+		super();
+		this.majorId = majorId;
+		this.majorName = majorName;
+	}
+
+	public Major() {
+		super();
+	}
+    
+    
 }
