@@ -19,6 +19,10 @@ public class StudentService {
 		
 		return studentMapper.selectByExampleWithMajor(null);
 	}
+
+	public void saveStu(Student student) {
+		studentMapper.insertSelective(student);
+	}
 	
 	
 	

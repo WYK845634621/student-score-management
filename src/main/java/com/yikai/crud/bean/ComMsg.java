@@ -1,4 +1,4 @@
-package com.yikai.crud.controller;
+package com.yikai.crud.bean;
 
 import java.util.HashMap;
 import java.util.Map;

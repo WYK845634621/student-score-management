@@ -6,11 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.yikai.crud.bean.ComMsg;
 import com.yikai.crud.bean.Student;
 import com.yikai.crud.service.StudentService;
 
@@ -19,6 +21,13 @@ public class StudentController {
 	
 	@Autowired
 	StudentService studentService;
+	
+	@RequestMapping(value="/stu",method=RequestMethod.POST)
+	@ResponseBody
+	public ComMsg getStu(Student student){
+		studentService.saveStu(student);
+		return ComMsg.success();
+	}
 	
 	@ResponseBody
 	@RequestMapping("/stus")

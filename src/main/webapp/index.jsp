@@ -18,7 +18,71 @@
 
 	<button id="find">查询</button>
 
-<br>
+	<!-- Modal -->
+	<div class="modal fade" id="stuAddModel" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="myModalLabel">添加学生</h4>
+				</div>
+				<div class="modal-body">
+					<form class="form-horizontal">
+						<div class="form-group">
+							<label class="col-sm-2 control-label">studentName</label>
+							<div class="col-sm-10">
+								<input type="text" name="studentName" class="form-control" id="stu_name_input" placeholder="学生姓名">
+								<span class="help-block"></span>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">gender</label>
+							<div class="col-sm-10">
+								<label class="radio-inline"> <input type="radio" name="gender" id="gender1_add_input" value="M" checked="checked">男</label> 
+								<label class="radio-inline"> <input type="radio" name="gender" id="gender2_add_input" value="F">女</label>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">email</label>
+							<div class="col-sm-10">
+								<input type="text" name="email" class="form-control" id="stu_email_input" placeholder="邮箱">
+								<span class="help-block"></span>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">grade</label>
+							<div class="col-sm-10">
+								<input type="text" name="grade" class="form-control" id="stu_grade_input" placeholder="年级">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">clas</label>
+							<div class="col-sm-10">
+								<input type="text" name="clas" class="form-control" id="stu_clas_input" placeholder="班级">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">majorName</label>
+							<div class="col-sm-3">
+								<select class="form-control" name="mId" id="major_add_select"></select>
+							</div>
+						</div>
+						
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+					<button type="button" class="btn btn-primary" id="stu_save_btn">保存</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<br>
 	<div class="container">
 		<!-- 标题 -->
 		<div class="row"><div class="col-md-12"><h1 style="text-align: center;">come here hey we girl</h1></div></div>	<br>
@@ -26,7 +90,7 @@
 		<!-- 两个按钮 -->
 		<div class="row">
 			<div class="col-md-2 col-md-offset-9">
-				<button class="btn btn-primary">添加</button>
+				<button class="btn btn-primary" id="stu_add_modl_btn">添加</button>
 				<button class="btn btn-danger">删除</button>
 			</div>
 		</div>
@@ -65,6 +129,7 @@
 	</div>
 	
 	<script type="text/javascript">
+	var totalRecord, currentPage;
 		//发送Ajax请求，要到分页数据
 		/* $("#find").click(function () {
 			$.ajax({
@@ -121,6 +186,7 @@
 		function build_page_info(result) {
 			$("#page_info_area").empty();
 			$("#page_info_area").append("当前"+result.extend.pageInfo.pageNum +"页,共"+result.extend.pageInfo.pages+"页,存在"+result.extend.pageInfo.total+"条记录");
+			totalRecord = result.extend.pageInfo.total;
 		}
 		//构建分页导航
 		function build_page_nav(result) {
@@ -173,6 +239,84 @@
 			var navEle = $("<nav></nav>").append(ul);
 			navEle.appendTo("#page_nav_area");
 		}
+		
+		//点击新增弹出模态框		发送Ajax请求获取major信息
+		$("#stu_add_modl_btn").click(function () {
+			getMajor();
+			$("#stuAddModel").modal({
+				backdrop:"static"
+			});
+		});
+		
+		//查出所有专业信息并显示下拉列表
+		function getMajor() {
+			$.ajax({
+				url:"${PATH}/majors",
+				type:"GET",
+				success:function(result){
+					//{"code":100,"msg":"处理成功","extend":{"majors":[{"majorId":1,"majorName":"软件工程"},{"majorId":2,"majorName":"机械自动化"},{"majorId":3,"majorName":"理学院"},{"majorId":4,"majorName":"仪器与电子"},{"majorId":5,"majorName":"经济管理"},{"majorId":6,"majorName":"国际学院"},{"majorId":7,"majorName":"材料科学与功能工程"}]}}
+					$.each(result.extend.majors,function(){
+						var optionEle = $("<option></option>").append(this.majorName).attr("value",this.majorId);
+						optionEle.appendTo("#stuAddModel select");
+					});
+				}
+			});
+		}
+		
+		//校验方法
+		function validate_add_form() {
+			var stuName = $("#stu_name_input").val();
+			var regName = /(^[a-zA-Z0-9_-]{6,16}$)|(^[\u2E80-\u9FFF]{2,4})$/;
+			if (!regName.test(stuName)) {
+				show_validate_msg("#stu_name_input","error","姓名可以是2-4个汉字或者6-16英文数字组合");
+				return false;
+			}else {
+				show_validate_msg("#stu_name_input","success","");
+			};
+			
+			var email = $("#stu_email_input").val();
+			var regEmail = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;
+			if (!regEmail.test(email)) {
+				show_validate_msg("#stu_email_input","error","邮箱格式不正确");
+				return false;
+			}else {
+				show_validate_msg("#stu_email_input","success","");
+			}
+			
+			
+			return true;
+		}
+		
+		//封装的校验方法
+		function show_validate_msg(ele,status,msg) {
+			//清除校验状态
+			$(ele).parent().removeClass("has-success has-error");
+			$(ele).next("span").text("");
+			if ("success" == status) {
+				$(ele).parent().addClass("has-success");
+				$(ele).next("span").text(msg);
+			}else {
+				$(ele).parent().addClass("has-error");
+				$(ele).next("span").text(msg);
+			}
+		}
+		//点击新增按钮处理事件	先校验 然后提交
+		$("#stu_save_btn").click(function () {
+			if (!validate_add_form()) {
+				return false;
+			}
+			$.ajax({
+				url:"${PATH}/stu",
+				type:"POST",
+				data:$("#stuAddModel form").serialize(),
+				success:function(result){
+					//学生保存成功以后  关闭模态框并且跳到最后一页
+					$("#stuAddModel").modal('hide');
+					to_page(totalRecord);
+				}
+			});
+		});
+		
 	
 	</script>
 
