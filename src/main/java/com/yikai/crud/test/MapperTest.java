@@ -35,9 +35,9 @@ public class MapperTest {
 	@Test
 	public void test(){
 		StudentMapper mapper = sqlSession.getMapper(StudentMapper.class);
-		for(int i =0 ; i < 200; i++){
+		for(int i =0 ; i < 20; i++){
 			String uuid = UUID.randomUUID().toString().substring(0, 6);
-			mapper.insertSelective(new Student(1502010222 + i, uuid, "F", "82684511@qq.com", "大一", 2, "15020403"));
+			mapper.insertSelective(new Student(1801110102 + i, uuid, "F", "132261911@qq.com", "2018", 1, "18010103"));
 		}
 		System.out.println("批量执行完毕");
 		

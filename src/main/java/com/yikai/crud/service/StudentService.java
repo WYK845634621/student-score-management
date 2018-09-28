@@ -19,5 +19,8 @@ public class StudentService {
 		
 		return studentMapper.selectByExampleWithMajor(null);
 	}
+	
+	
+	
 
 }
