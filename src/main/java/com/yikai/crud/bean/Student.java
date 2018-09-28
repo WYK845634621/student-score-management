@@ -1,12 +1,18 @@
 package com.yikai.crud.bean;
 
+import javax.validation.constraints.Pattern;
+
+import org.hibernate.validator.constraints.Email;
+
 public class Student {
     private Integer studentId;
 
+    @Pattern(regexp="(^[a-zA-Z0-9_-]{6,16}$)|(^[\u2E80-\u9FFF]{2,4})$",message="学生姓名必须是6-16位或者2-4中文")
     private String studentName;
 
     private String gender;
 
+    @Email
     private String email;
 
     private String grade;

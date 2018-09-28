@@ -240,8 +240,16 @@
 			navEle.appendTo("#page_nav_area");
 		}
 		
-		//点击新增弹出模态框		发送Ajax请求获取major信息
+		//清空表单内容及样式
+		function reset_form(ele) {
+			$(ele)[0].reset();
+			$(ele).find("*").removeClass("has-success has-error");
+			$(ele).find(".help-block").text("");
+		}
+		
+		//点击新增弹出模态框	表单重置来清空表单数据内容 因为reset只有dom对象才可以使用	发送Ajax请求获取major信息
 		$("#stu_add_modl_btn").click(function () {
+			reset_form("#stuAddModel form");
 			getMajor();
 			$("#stuAddModel").modal({
 				backdrop:"static"
@@ -263,7 +271,7 @@
 			});
 		}
 		
-		//校验方法
+		//校验方法		
 		function validate_add_form() {
 			var stuName = $("#stu_name_input").val();
 			var regName = /(^[a-zA-Z0-9_-]{6,16}$)|(^[\u2E80-\u9FFF]{2,4})$/;
@@ -287,7 +295,7 @@
 			return true;
 		}
 		
-		//封装的校验方法
+		//封装的校验方法	前端校验是很容易被一些懂的人轻易躲过的 比方直接在网页查看元素把class内容改成success
 		function show_validate_msg(ele,status,msg) {
 			//清除校验状态
 			$(ele).parent().removeClass("has-success has-error");
@@ -300,9 +308,31 @@
 				$(ele).next("span").text(msg);
 			}
 		}
+		
+		$("#stu_name_input").change(function() {
+			var stuName = this.value;
+			$.ajax({
+				url:"${PATH}/checkName",
+				data:"stuName="+stuName,
+				type:"POST",
+				success:function(result){
+					if (result.code==100) {
+						show_validate_msg("#stu_name_input","success","名字可以进行使用");
+						$("#stu_save_btn").attr("ajax-validate","success");
+					}else {
+						$("#stu_save_btn").attr("ajax-validate","error");
+						show_validate_msg("#stu_name_input","error",result.extend.validate_msg);
+					}
+				}
+			});
+		});
+		
 		//点击新增按钮处理事件	先校验 然后提交
 		$("#stu_save_btn").click(function () {
-			if (!validate_add_form()) {
+			/* if (!validate_add_form()) {
+				return false;
+			} */
+			if ($(this).attr("ajax-validate") == "error") {
 				return false;
 			}
 			$.ajax({
@@ -310,9 +340,18 @@
 				type:"POST",
 				data:$("#stuAddModel form").serialize(),
 				success:function(result){
-					//学生保存成功以后  关闭模态框并且跳到最后一页
-					$("#stuAddModel").modal('hide');
-					to_page(totalRecord);
+					if (result.code==100) {
+						//学生保存成功以后  关闭模态框并且跳到最后一页
+						$("#stuAddModel").modal('hide');
+						to_page(totalRecord);
+					}else {
+						if (undefined != result.extend.errorFields.email) {
+							show_validate_msg("#stu_email_input","error",result.extend.errorFields.email);
+						}
+						if (undefined != result.extend.errorFields.studentName) {
+							show_validate_msg("#stu_name_input","error",result.extend.errorFields.studentName);			
+						}
+					}
 				}
 			});
 		});
