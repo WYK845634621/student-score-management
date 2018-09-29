@@ -11,7 +11,7 @@
     <result column="clas" jdbcType="VARCHAR" property="clas" />
   </resultMap>
  
-<!-- 自定义resuleMap --> 
+ <!-- 自定义resuleMap --> 
   <resultMap type="com.yikai.crud.bean.Student" id="WithMajorResultMap">
   	<id column="student_id" jdbcType="INTEGER" property="studentId" />
     <result column="student_name" jdbcType="VARCHAR" property="studentName" />
@@ -25,7 +25,7 @@
     	<result column="major_name" property="majorName"/>
     </association>
   </resultMap>
-  
+ 
   <sql id="Example_Where_Clause">
     <where>
       <foreach collection="oredCriteria" item="criteria" separator="or">
@@ -92,7 +92,7 @@
   	s.student_id, s.student_name, s.gender, s.email, s.grade, s.m_id, s.clas, m.major_id, m.major_name
   </sql>
   
-<!-- 自定义的两个查询方法 -->
+  <!-- 自定义的两个查询方法 -->
   <select id="selectByExampleWithMajor" resultMap="WithMajorResultMap">
   	 select
     <if test="distinct">
@@ -116,7 +116,6 @@
     where student_id = #{studentId,jdbcType=INTEGER}
   
   </select>
-  
   
   <select id="selectByExample" parameterType="com.yikai.crud.bean.StudentExample" resultMap="BaseResultMap">
     select

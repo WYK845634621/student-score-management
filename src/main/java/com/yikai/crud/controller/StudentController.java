@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -27,6 +28,24 @@ public class StudentController {
 	
 	@Autowired
 	StudentService studentService;
+	
+	@ResponseBody
+	@RequestMapping(value="/stu/{studentId}",method=RequestMethod.PUT)
+	public ComMsg saveStu(Student student){
+		System.out.println("更新的信息:" + student);
+		studentService.updateStu(student);
+		return ComMsg.success();
+	}
+	
+	
+	@RequestMapping(value="/getStu/{id}",method=RequestMethod.GET)
+	@ResponseBody
+	public ComMsg getStu(@PathVariable("id") Integer id){
+		Student student = studentService.getStu(id);
+		
+		return ComMsg.success().add("stu", student);
+	}
+	
 	
 //	进行JSR303校验  先导入hiberate-validate包
 	@ResponseBody

@@ -105,4 +105,11 @@ public class Student {
     public void setClas(String clas) {
         this.clas = clas == null ? null : clas.trim();
     }
+
+	@Override
+	public String toString() {
+		return "Student [studentId=" + studentId + ", studentName=" + studentName + ", gender=" + gender + ", email="
+				+ email + ", grade=" + grade + ", mId=" + mId + ", clas=" + clas + ", major=" + major + "]";
+	}
+    
 }

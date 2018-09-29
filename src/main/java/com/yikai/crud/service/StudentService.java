@@ -33,6 +33,17 @@ public class StudentService {
 		long count = studentMapper.countByExample(example);
 		return count==0;
 	}
+
+	public Student getStu(Integer id) {
+		Student student = studentMapper.selectByPrimaryKey(id);
+		return student;
+		
+	}
+
+	public void updateStu(Student student) {
+		studentMapper.updateByPrimaryKeySelective(student);
+		
+	}
 	
 	
 	

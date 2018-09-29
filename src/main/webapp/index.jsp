@@ -17,6 +17,69 @@
 <body>
 
 	<button id="find">查询</button>
+	
+	<!-- 修改的模态框 -->
+	<div class="modal fade" id="stuUpdateModel" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="myModalLabel">学生信息修改</h4>
+				</div>
+				<div class="modal-body">
+					<form class="form-horizontal">
+						<div class="form-group">
+							<label class="col-sm-2 control-label">studentName</label>
+							<div class="col-sm-10">
+								<p class="form-control-static" id="stu_update_static">email@example.com</p>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">gender</label>
+							<div class="col-sm-10">
+								<label class="radio-inline"> <input type="radio" name="gender" id="gender1_update_input" value="M" checked="checked">男</label> 
+								<label class="radio-inline"> <input type="radio" name="gender" id="gender2_update_input" value="F">女</label>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">email</label>
+							<div class="col-sm-10">
+								<input type="text" name="email" class="form-control" id="update_email_input" placeholder="邮箱">
+								<span class="help-block"></span>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">grade</label>
+							<div class="col-sm-10">
+								<input type="text" name="grade" class="form-control" id="update_grade_input" placeholder="年级">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">clas</label>
+							<div class="col-sm-10">
+								<input type="text" name="clas" class="form-control" id="update_clas_input" placeholder="班级">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">majorName</label>
+							<div class="col-sm-3">
+								<select class="form-control" name="mId" id="major_update_select"></select>
+							</div>
+						</div>
+						
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+					<button type="button" class="btn btn-primary" id="stu_update_btn">更新</button>
+				</div>
+			</div>
+		</div>
+	</div>
 
 	<!-- Modal -->
 	<div class="modal fade" id="stuAddModel" tabindex="-1" role="dialog"
@@ -176,8 +239,9 @@
 				/*<button class="btn btn-info btn-xs"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>编辑</button>
 						<button class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span>删除</button>
 				*/
-				var editBtn = $("<button></button>").addClass("btn btn-info btn-xs").append($("<span></span>").addClass("glyphicon glyphicon-pencil")).append("编辑");
-				var delBtn = $("<button></button>").addClass("btn btn-danger btn-xs").append($("<span></span>").addClass("glyphicon glyphicon-trash")).append("删除");
+				var editBtn = $("<button></button>").addClass("btn btn-info btn-xs edit_btn").append($("<span></span>").addClass("glyphicon glyphicon-pencil")).append("编辑");
+				editBtn.attr("edit_id",item.studentId);
+				var delBtn = $("<button></button>").addClass("btn btn-danger btn-xs del_btn").append($("<span></span>").addClass("glyphicon glyphicon-trash")).append("删除");
 				var btnTd = $("<td></td>").append(editBtn).append(" ").append(delBtn);
 				$("<tr></tr>").append(spaceTd).append(gradeTd).append(majorNameTd).append(clasTd).append(studentIdTd).append(studentNameTd).append(genderTd).append(emailTd).append(btnTd).appendTo("#stus_table tbody");
 			});
@@ -250,14 +314,15 @@
 		//点击新增弹出模态框	表单重置来清空表单数据内容 因为reset只有dom对象才可以使用	发送Ajax请求获取major信息
 		$("#stu_add_modl_btn").click(function () {
 			reset_form("#stuAddModel form");
-			getMajor();
+			getMajor("#stuAddModel select");
 			$("#stuAddModel").modal({
 				backdrop:"static"
 			});
 		});
 		
 		//查出所有专业信息并显示下拉列表
-		function getMajor() {
+		function getMajor(ele) {
+			$(ele).empty();
 			$.ajax({
 				url:"${PATH}/majors",
 				type:"GET",
@@ -265,7 +330,7 @@
 					//{"code":100,"msg":"处理成功","extend":{"majors":[{"majorId":1,"majorName":"软件工程"},{"majorId":2,"majorName":"机械自动化"},{"majorId":3,"majorName":"理学院"},{"majorId":4,"majorName":"仪器与电子"},{"majorId":5,"majorName":"经济管理"},{"majorId":6,"majorName":"国际学院"},{"majorId":7,"majorName":"材料科学与功能工程"}]}}
 					$.each(result.extend.majors,function(){
 						var optionEle = $("<option></option>").append(this.majorName).attr("value",this.majorId);
-						optionEle.appendTo("#stuAddModel select");
+						optionEle.appendTo(ele);
 					});
 				}
 			});
@@ -355,6 +420,57 @@
 				}
 			});
 		});
+		
+		
+		//点击编辑弹出模态框	然后把id传给更新按钮
+		$(document).on("click",".edit_btn",function(){
+			getMajor("#stuUpdateModel select");
+			getStu($(this).attr("edit_id"));
+			$("#stu_update_btn").attr("edit_id",$(this).attr("edit_id"));
+			$("#stuUpdateModel").modal({
+				backdrop:"static"
+			});
+		});
+		
+		//表单回显
+		function getStu(id) {
+			$.ajax({
+				url:"${PATH}/getStu/"+id,
+				type:"GET",
+				success:function(result){
+					var stuData = result.extend.stu;
+					$("#stu_update_static").text(stuData.studentName);
+					$("#stuUpdateModel input[name=gender]").val([stuData.gender]);
+					$("#update_email_input").val(stuData.email);
+					$("#update_grade_input").val(stuData.grade);
+					$("#update_clas_input").val(stuData.clas);
+					$("#stuUpdateModel select").val([stuData.mId]);
+				}
+			});
+		}
+		
+		//校验	然后更新
+		$("#stu_update_btn").click(function () {
+			var email = $("#update_email_input").val();
+			var regEmail = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;
+			if (!regEmail.test(email)) {
+				show_validate_msg("#update_email_input","error","邮箱格式不正确");
+				return false;
+			}else {
+				show_validate_msg("#update_email_input","success","");
+			}
+			
+			$.ajax({
+				url:"${PATH}/stu/"+$(this).attr("edit_id"),
+				type:"PUT",
+				data:$("#stuUpdateModel form").serialize(),
+				success:function(result){
+					//$("#stuUpdateModel").modal('hide');
+					alert(result.msg);
+				}
+			});
+		});
+		
 		
 	
 	</script>
