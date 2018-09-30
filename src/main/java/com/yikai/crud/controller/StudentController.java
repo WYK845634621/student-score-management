@@ -1,5 +1,7 @@
 package com.yikai.crud.controller;
 
+
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,6 +31,25 @@ public class StudentController {
 	@Autowired
 	StudentService studentService;
 	
+//	单个多个二合一删除
+	@ResponseBody
+	@RequestMapping(value="/stu/{ids}",method=RequestMethod.DELETE)
+	public ComMsg deleteStu(@PathVariable("ids") String ids){
+		if (ids.contains("-")) {
+			List<Integer> del_ids = new ArrayList<>();
+			String[] str_ids = ids.split("-");
+			for (String string : str_ids) {
+				del_ids.add(Integer.parseInt(string));
+			}
+			studentService.deleteBatch(del_ids);
+		}else {
+			Integer id = Integer.parseInt(ids);
+			studentService.deleteStu(id);
+		}
+		return ComMsg.success();
+	}
+	
+//	不能随便用Ajax发送PUT请求		Tomcat一看是PUT请求便不会进行封装对象
 	@ResponseBody
 	@RequestMapping(value="/stu/{studentId}",method=RequestMethod.PUT)
 	public ComMsg saveStu(Student student){

@@ -154,7 +154,7 @@
 		<div class="row">
 			<div class="col-md-2 col-md-offset-9">
 				<button class="btn btn-primary" id="stu_add_modl_btn">添加</button>
-				<button class="btn btn-danger">删除</button>
+				<button class="btn btn-danger" id="stu_del_all_btn">删除</button>
 			</div>
 		</div>
 		
@@ -163,7 +163,7 @@
 			<div class="col-md-12">
 				<table class="table table-hover" id="stus_table">
 					<thead>
-					<tr><th>#</th>
+					<tr><th><input type="checkbox" id="check_all"></input></th>
 					<th>grade</th>
 					<th>majorName</th>
 					<th>clas</th>
@@ -228,7 +228,7 @@
 			$("#stus_table tbody").empty();
 			var stus = result.extend.pageInfo.list;
 			$.each(stus,function(index,item){
-				var spaceTd = $("<td></td>");
+				var checkBoxTd = $("<td><input type='checkbox' class='check_item'/></td>");
 				var studentIdTd = $("<td></td>").append(item.studentId);
 				var studentNameTd = $("<td></td>").append(item.studentName);
 				var genderTd = $("<td></td>").append(item.gender == 'M'?"男":"女");
@@ -242,8 +242,9 @@
 				var editBtn = $("<button></button>").addClass("btn btn-info btn-xs edit_btn").append($("<span></span>").addClass("glyphicon glyphicon-pencil")).append("编辑");
 				editBtn.attr("edit_id",item.studentId);
 				var delBtn = $("<button></button>").addClass("btn btn-danger btn-xs del_btn").append($("<span></span>").addClass("glyphicon glyphicon-trash")).append("删除");
+				delBtn.attr("del_id",item.studentId);
 				var btnTd = $("<td></td>").append(editBtn).append(" ").append(delBtn);
-				$("<tr></tr>").append(spaceTd).append(gradeTd).append(majorNameTd).append(clasTd).append(studentIdTd).append(studentNameTd).append(genderTd).append(emailTd).append(btnTd).appendTo("#stus_table tbody");
+				$("<tr></tr>").append(checkBoxTd).append(gradeTd).append(majorNameTd).append(clasTd).append(studentIdTd).append(studentNameTd).append(genderTd).append(emailTd).append(btnTd).appendTo("#stus_table tbody");
 			});
 		}
 		//构建分页信息函数
@@ -251,6 +252,7 @@
 			$("#page_info_area").empty();
 			$("#page_info_area").append("当前"+result.extend.pageInfo.pageNum +"页,共"+result.extend.pageInfo.pages+"页,存在"+result.extend.pageInfo.total+"条记录");
 			totalRecord = result.extend.pageInfo.total;
+			currentPage = result.extend.pageInfo.pageNum;
 		}
 		//构建分页导航
 		function build_page_nav(result) {
@@ -400,6 +402,7 @@
 			if ($(this).attr("ajax-validate") == "error") {
 				return false;
 			}
+			console.log($("#stuAddModel form").serialize());
 			$.ajax({
 				url:"${PATH}/stu",
 				type:"POST",
@@ -451,27 +454,80 @@
 		
 		//校验	然后更新
 		$("#stu_update_btn").click(function () {
-			var email = $("#update_email_input").val();
+			 var email = $("#update_email_input").val();
 			var regEmail = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;
 			if (!regEmail.test(email)) {
 				show_validate_msg("#update_email_input","error","邮箱格式不正确");
 				return false;
 			}else {
 				show_validate_msg("#update_email_input","success","");
-			}
-			
+			} 
 			$.ajax({
 				url:"${PATH}/stu/"+$(this).attr("edit_id"),
 				type:"PUT",
 				data:$("#stuUpdateModel form").serialize(),
 				success:function(result){
 					//$("#stuUpdateModel").modal('hide');
-					alert(result.msg);
+					//alert(result.msg);
+					$("#stuUpdateModel").modal('hide');
+					to_page(currentPage); 
 				}
 			});
 		});
 		
 		
+		//单个删除		
+		$(document).on("click",".del_btn",function(){
+			var studentName = $(this).parents("tr").find("td:eq(5)").text();
+			var studentId = $(this).attr("del_id");
+			if (confirm("确认删除【" + studentName +"】同学的信息吗？")) {
+				$.ajax({
+					url:"${PATH}/stu/"+studentId,
+					type:"DELETE",
+					success:function(result){
+						alert(result.msg);
+						to_page(currentPage);
+					}
+					
+				});
+			}
+		});
+		
+		
+		//完成全选和全不选
+		$("#check_all").click(function () {
+			$(".check_item").prop("checked",$(this).prop("checked"));
+		});
+		
+		//每一个分别选中后   总的也自动选中
+		$(document).on("click",".check_item",function(){
+			//alert($(".check_item:checked").length);
+			var flag = $(".check_item:checked").length == $(".check_item").length;
+			$("#check_all").prop("checked",flag);
+		});
+			
+		
+		$("#stu_del_all_btn").click(function () {
+			var stuNames = "";
+			var del_idstr = "";
+			$.each($(".check_item:checked"),function(){
+				stuNames += $(this).parents("tr").find("td:eq(5)").text()+ ",";
+				del_idstr +=  $(this).parents("tr").find("td:eq(4)").text()+ "-";
+			});
+			stuNames = stuNames.substring(0,stuNames.length-1);
+			del_idstr = del_idstr.substring(0,del_idstr.length-1);
+			if (confirm("确认删除【" + stuNames +"】同学的信息吗？")) {
+				$.ajax({
+					url:"${PATH}/stu/"+del_idstr,
+					type:"DELETE",
+					success:function(result){
+						alert(result.msg);
+						to_page(currentPage);
+					}
+					
+				});
+			}
+		});
 	
 	</script>
 

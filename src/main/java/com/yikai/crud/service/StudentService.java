@@ -44,6 +44,17 @@ public class StudentService {
 		studentMapper.updateByPrimaryKeySelective(student);
 		
 	}
+
+	public void deleteStu(Integer id) {
+		studentMapper.deleteByPrimaryKey(id);
+	}
+
+	public void deleteBatch(List<Integer> ids) {
+		StudentExample studentExample = new StudentExample();
+		Criteria criteria = studentExample.createCriteria();
+		criteria.andStudentIdIn(ids);
+		studentMapper.deleteByExample(studentExample);
+	}
 	
 	
 	
