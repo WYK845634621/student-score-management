@@ -16,7 +16,7 @@
 </head>
 <body>
 
-	<button id="find">查询</button>
+	<!-- <button id="find">查询</button> -->
 	
 	<!-- 修改的模态框 -->
 	<div class="modal fade" id="stuUpdateModel" tabindex="-1" role="dialog"
@@ -145,21 +145,44 @@
 		</div>
 	</div>
 
-	<br>
+
 	<div class="container">
 		<!-- 标题 -->
 		<div class="row"><div class="col-md-12"><h1 style="text-align: center;">come here hey we girl</h1></div></div>	<br>
 		
 		<!-- 两个按钮 -->
 		<div class="row">
-			<div class="col-md-2 col-md-offset-9">
+			<div class="col-md-12">
+			<form class="form-inline">
+			  <div class="form-group">
+			    <label>年级</label>
+			    <select class="form-control" name="mId" id="major_add_select"></select>
+			  </div>
+			  <div class="form-group">
+			    <label>专业</label>
+			    <select class="form-control" name="mId" id="major_select"></select>
+			  </div>
+			  <div class="form-group">
+			    <label>班级</label>
+			    <select class="form-control" name="mId" id="major_add_select"></select>
+			  </div>
+			  <div class="form-group">
+			    <label>学号</label>
+			    <input type="text" class="form-control" id="exampleInputName2" placeholder="151402">
+			  </div>
+			  <button type="submit" class="btn btn-warning">查询</button>
+			</form>
+			</div>
+			<div class="col-md-4 col-md-offset-8">
+				<button class="btn btn btn-success" id="find">查询所有</button>
 				<button class="btn btn-primary" id="stu_add_modl_btn">添加</button>
-				<button class="btn btn-danger" id="stu_del_all_btn">删除</button>
+				<button class="btn btn-danger" id="stu_del_all_btn">批量删除</button>
 			</div>
 		</div>
 		
 		<!-- 表格 -->
 		<div class="row">
+		
 			<div class="col-md-12">
 				<table class="table table-hover" id="stus_table">
 					<thead>
@@ -193,21 +216,31 @@
 	
 	<script type="text/javascript">
 	var totalRecord, currentPage;
+	
+	
+		$(function () {
+			getMajor("#major_select");
+		});	
+	
+	
 		//发送Ajax请求，要到分页数据
-		/* $("#find").click(function () {
+		 $("#find").click(function () {
 			$.ajax({
 				url:"${PATH}/stus",
 				data:"pn=1",
 				type:"GET",
 				success:function(result){
 					build_stus_table(result);
+					build_page_info(result);
+					build_page_nav(result);
+					
 				}
 				
 			});
-		}); */
-		 $(function () {
-			 to_page(1);
 		}); 
+		 /* $(function () {
+			 to_page(1);
+		});  */
 		
 		function to_page(pn) {
 			$.ajax({
