@@ -16,10 +16,17 @@ public class StudentService {
 	@Autowired
 	StudentMapper studentMapper;
 	
+//	有选择性的查询
 	public List<Student> getSelective(Student student){
+		System.out.println(student);
 		StudentExample example = new StudentExample();
 		Criteria criteria = example.createCriteria();
 		criteria.andGradeEqualTo(student.getGrade());
+		criteria.andMIdEqualTo(student.getmId());
+		criteria.andClasEqualTo(student.getClas());
+		if (student.getStudentId()!= null) {
+			criteria.andStudentIdEqualTo(student.getStudentId());
+		}
 		List<Student> list = studentMapper.selectByExampleWithMajor(example);
 		return list;
 	}

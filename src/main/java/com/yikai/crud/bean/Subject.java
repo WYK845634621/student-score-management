@@ -1,29 +1,19 @@
 package com.yikai.crud.bean;
 
 public class Subject {
-    private Integer subjectId;
-
-    private Integer subjectScore;
-
     private Integer sId;
 
-    private byte[] subjectName;
+    private Integer physics;
 
-    public Integer getSubjectId() {
-        return subjectId;
-    }
+    private Integer math;
 
-    public void setSubjectId(Integer subjectId) {
-        this.subjectId = subjectId;
-    }
+    private Integer english;
 
-    public Integer getSubjectScore() {
-        return subjectScore;
-    }
+    private Integer chemistry;
 
-    public void setSubjectScore(Integer subjectScore) {
-        this.subjectScore = subjectScore;
-    }
+    private Integer biology;
+
+    private Integer history;
 
     public Integer getsId() {
         return sId;
@@ -33,11 +23,51 @@ public class Subject {
         this.sId = sId;
     }
 
-    public byte[] getSubjectName() {
-        return subjectName;
+    public Integer getPhysics() {
+        return physics;
     }
 
-    public void setSubjectName(byte[] subjectName) {
-        this.subjectName = subjectName;
+    public void setPhysics(Integer physics) {
+        this.physics = physics;
+    }
+
+    public Integer getMath() {
+        return math;
+    }
+
+    public void setMath(Integer math) {
+        this.math = math;
+    }
+
+    public Integer getEnglish() {
+        return english;
+    }
+
+    public void setEnglish(Integer english) {
+        this.english = english;
+    }
+
+    public Integer getChemistry() {
+        return chemistry;
+    }
+
+    public void setChemistry(Integer chemistry) {
+        this.chemistry = chemistry;
+    }
+
+    public Integer getBiology() {
+        return biology;
+    }
+
+    public void setBiology(Integer biology) {
+        this.biology = biology;
+    }
+
+    public Integer getHistory() {
+        return history;
+    }
+
+    public void setHistory(Integer history) {
+        this.history = history;
     }
 }

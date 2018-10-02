@@ -39,9 +39,9 @@
 		<!-- table -->
 		<!-- <table tableName="tbl_student" domainObjectName="Student"></table>
 		<table tableName="tbl_major" domainObjectName="Major"></table>
-		<table tableName="tbl_subject" domainObjectName="Subject"></table> -->
 		<table tableName="tbl_grade" domainObjectName="Grade"></table>
-		<table tableName="tbl_clas" domainObjectName="Clas"></table>
+		<table tableName="tbl_clas" domainObjectName="Clas"></table> -->
+		<table tableName="tbl_subject" domainObjectName="Subject"></table>
 
 	</context>
 </generatorConfiguration>

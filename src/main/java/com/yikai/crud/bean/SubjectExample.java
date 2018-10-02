@@ -104,126 +104,6 @@ public class SubjectExample {
             criteria.add(new Criterion(condition, value1, value2));
         }
 
-        public Criteria andSubjectIdIsNull() {
-            addCriterion("subject_id is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andSubjectIdIsNotNull() {
-            addCriterion("subject_id is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andSubjectIdEqualTo(Integer value) {
-            addCriterion("subject_id =", value, "subjectId");
-            return (Criteria) this;
-        }
-
-        public Criteria andSubjectIdNotEqualTo(Integer value) {
-            addCriterion("subject_id <>", value, "subjectId");
-            return (Criteria) this;
-        }
-
-        public Criteria andSubjectIdGreaterThan(Integer value) {
-            addCriterion("subject_id >", value, "subjectId");
-            return (Criteria) this;
-        }
-
-        public Criteria andSubjectIdGreaterThanOrEqualTo(Integer value) {
-            addCriterion("subject_id >=", value, "subjectId");
-            return (Criteria) this;
-        }
-
-        public Criteria andSubjectIdLessThan(Integer value) {
-            addCriterion("subject_id <", value, "subjectId");
-            return (Criteria) this;
-        }
-
-        public Criteria andSubjectIdLessThanOrEqualTo(Integer value) {
-            addCriterion("subject_id <=", value, "subjectId");
-            return (Criteria) this;
-        }
-
-        public Criteria andSubjectIdIn(List<Integer> values) {
-            addCriterion("subject_id in", values, "subjectId");
-            return (Criteria) this;
-        }
-
-        public Criteria andSubjectIdNotIn(List<Integer> values) {
-            addCriterion("subject_id not in", values, "subjectId");
-            return (Criteria) this;
-        }
-
-        public Criteria andSubjectIdBetween(Integer value1, Integer value2) {
-            addCriterion("subject_id between", value1, value2, "subjectId");
-            return (Criteria) this;
-        }
-
-        public Criteria andSubjectIdNotBetween(Integer value1, Integer value2) {
-            addCriterion("subject_id not between", value1, value2, "subjectId");
-            return (Criteria) this;
-        }
-
-        public Criteria andSubjectScoreIsNull() {
-            addCriterion("subject_score is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andSubjectScoreIsNotNull() {
-            addCriterion("subject_score is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andSubjectScoreEqualTo(Integer value) {
-            addCriterion("subject_score =", value, "subjectScore");
-            return (Criteria) this;
-        }
-
-        public Criteria andSubjectScoreNotEqualTo(Integer value) {
-            addCriterion("subject_score <>", value, "subjectScore");
-            return (Criteria) this;
-        }
-
-        public Criteria andSubjectScoreGreaterThan(Integer value) {
-            addCriterion("subject_score >", value, "subjectScore");
-            return (Criteria) this;
-        }
-
-        public Criteria andSubjectScoreGreaterThanOrEqualTo(Integer value) {
-            addCriterion("subject_score >=", value, "subjectScore");
-            return (Criteria) this;
-        }
-
-        public Criteria andSubjectScoreLessThan(Integer value) {
-            addCriterion("subject_score <", value, "subjectScore");
-            return (Criteria) this;
-        }
-
-        public Criteria andSubjectScoreLessThanOrEqualTo(Integer value) {
-            addCriterion("subject_score <=", value, "subjectScore");
-            return (Criteria) this;
-        }
-
-        public Criteria andSubjectScoreIn(List<Integer> values) {
-            addCriterion("subject_score in", values, "subjectScore");
-            return (Criteria) this;
-        }
-
-        public Criteria andSubjectScoreNotIn(List<Integer> values) {
-            addCriterion("subject_score not in", values, "subjectScore");
-            return (Criteria) this;
-        }
-
-        public Criteria andSubjectScoreBetween(Integer value1, Integer value2) {
-            addCriterion("subject_score between", value1, value2, "subjectScore");
-            return (Criteria) this;
-        }
-
-        public Criteria andSubjectScoreNotBetween(Integer value1, Integer value2) {
-            addCriterion("subject_score not between", value1, value2, "subjectScore");
-            return (Criteria) this;
-        }
-
         public Criteria andSIdIsNull() {
             addCriterion("s_id is null");
             return (Criteria) this;
@@ -281,6 +161,366 @@ public class SubjectExample {
 
         public Criteria andSIdNotBetween(Integer value1, Integer value2) {
             addCriterion("s_id not between", value1, value2, "sId");
+            return (Criteria) this;
+        }
+
+        public Criteria andPhysicsIsNull() {
+            addCriterion("physics is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPhysicsIsNotNull() {
+            addCriterion("physics is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPhysicsEqualTo(Integer value) {
+            addCriterion("physics =", value, "physics");
+            return (Criteria) this;
+        }
+
+        public Criteria andPhysicsNotEqualTo(Integer value) {
+            addCriterion("physics <>", value, "physics");
+            return (Criteria) this;
+        }
+
+        public Criteria andPhysicsGreaterThan(Integer value) {
+            addCriterion("physics >", value, "physics");
+            return (Criteria) this;
+        }
+
+        public Criteria andPhysicsGreaterThanOrEqualTo(Integer value) {
+            addCriterion("physics >=", value, "physics");
+            return (Criteria) this;
+        }
+
+        public Criteria andPhysicsLessThan(Integer value) {
+            addCriterion("physics <", value, "physics");
+            return (Criteria) this;
+        }
+
+        public Criteria andPhysicsLessThanOrEqualTo(Integer value) {
+            addCriterion("physics <=", value, "physics");
+            return (Criteria) this;
+        }
+
+        public Criteria andPhysicsIn(List<Integer> values) {
+            addCriterion("physics in", values, "physics");
+            return (Criteria) this;
+        }
+
+        public Criteria andPhysicsNotIn(List<Integer> values) {
+            addCriterion("physics not in", values, "physics");
+            return (Criteria) this;
+        }
+
+        public Criteria andPhysicsBetween(Integer value1, Integer value2) {
+            addCriterion("physics between", value1, value2, "physics");
+            return (Criteria) this;
+        }
+
+        public Criteria andPhysicsNotBetween(Integer value1, Integer value2) {
+            addCriterion("physics not between", value1, value2, "physics");
+            return (Criteria) this;
+        }
+
+        public Criteria andMathIsNull() {
+            addCriterion("math is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andMathIsNotNull() {
+            addCriterion("math is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andMathEqualTo(Integer value) {
+            addCriterion("math =", value, "math");
+            return (Criteria) this;
+        }
+
+        public Criteria andMathNotEqualTo(Integer value) {
+            addCriterion("math <>", value, "math");
+            return (Criteria) this;
+        }
+
+        public Criteria andMathGreaterThan(Integer value) {
+            addCriterion("math >", value, "math");
+            return (Criteria) this;
+        }
+
+        public Criteria andMathGreaterThanOrEqualTo(Integer value) {
+            addCriterion("math >=", value, "math");
+            return (Criteria) this;
+        }
+
+        public Criteria andMathLessThan(Integer value) {
+            addCriterion("math <", value, "math");
+            return (Criteria) this;
+        }
+
+        public Criteria andMathLessThanOrEqualTo(Integer value) {
+            addCriterion("math <=", value, "math");
+            return (Criteria) this;
+        }
+
+        public Criteria andMathIn(List<Integer> values) {
+            addCriterion("math in", values, "math");
+            return (Criteria) this;
+        }
+
+        public Criteria andMathNotIn(List<Integer> values) {
+            addCriterion("math not in", values, "math");
+            return (Criteria) this;
+        }
+
+        public Criteria andMathBetween(Integer value1, Integer value2) {
+            addCriterion("math between", value1, value2, "math");
+            return (Criteria) this;
+        }
+
+        public Criteria andMathNotBetween(Integer value1, Integer value2) {
+            addCriterion("math not between", value1, value2, "math");
+            return (Criteria) this;
+        }
+
+        public Criteria andEnglishIsNull() {
+            addCriterion("english is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andEnglishIsNotNull() {
+            addCriterion("english is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andEnglishEqualTo(Integer value) {
+            addCriterion("english =", value, "english");
+            return (Criteria) this;
+        }
+
+        public Criteria andEnglishNotEqualTo(Integer value) {
+            addCriterion("english <>", value, "english");
+            return (Criteria) this;
+        }
+
+        public Criteria andEnglishGreaterThan(Integer value) {
+            addCriterion("english >", value, "english");
+            return (Criteria) this;
+        }
+
+        public Criteria andEnglishGreaterThanOrEqualTo(Integer value) {
+            addCriterion("english >=", value, "english");
+            return (Criteria) this;
+        }
+
+        public Criteria andEnglishLessThan(Integer value) {
+            addCriterion("english <", value, "english");
+            return (Criteria) this;
+        }
+
+        public Criteria andEnglishLessThanOrEqualTo(Integer value) {
+            addCriterion("english <=", value, "english");
+            return (Criteria) this;
+        }
+
+        public Criteria andEnglishIn(List<Integer> values) {
+            addCriterion("english in", values, "english");
+            return (Criteria) this;
+        }
+
+        public Criteria andEnglishNotIn(List<Integer> values) {
+            addCriterion("english not in", values, "english");
+            return (Criteria) this;
+        }
+
+        public Criteria andEnglishBetween(Integer value1, Integer value2) {
+            addCriterion("english between", value1, value2, "english");
+            return (Criteria) this;
+        }
+
+        public Criteria andEnglishNotBetween(Integer value1, Integer value2) {
+            addCriterion("english not between", value1, value2, "english");
+            return (Criteria) this;
+        }
+
+        public Criteria andChemistryIsNull() {
+            addCriterion("chemistry is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andChemistryIsNotNull() {
+            addCriterion("chemistry is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andChemistryEqualTo(Integer value) {
+            addCriterion("chemistry =", value, "chemistry");
+            return (Criteria) this;
+        }
+
+        public Criteria andChemistryNotEqualTo(Integer value) {
+            addCriterion("chemistry <>", value, "chemistry");
+            return (Criteria) this;
+        }
+
+        public Criteria andChemistryGreaterThan(Integer value) {
+            addCriterion("chemistry >", value, "chemistry");
+            return (Criteria) this;
+        }
+
+        public Criteria andChemistryGreaterThanOrEqualTo(Integer value) {
+            addCriterion("chemistry >=", value, "chemistry");
+            return (Criteria) this;
+        }
+
+        public Criteria andChemistryLessThan(Integer value) {
+            addCriterion("chemistry <", value, "chemistry");
+            return (Criteria) this;
+        }
+
+        public Criteria andChemistryLessThanOrEqualTo(Integer value) {
+            addCriterion("chemistry <=", value, "chemistry");
+            return (Criteria) this;
+        }
+
+        public Criteria andChemistryIn(List<Integer> values) {
+            addCriterion("chemistry in", values, "chemistry");
+            return (Criteria) this;
+        }
+
+        public Criteria andChemistryNotIn(List<Integer> values) {
+            addCriterion("chemistry not in", values, "chemistry");
+            return (Criteria) this;
+        }
+
+        public Criteria andChemistryBetween(Integer value1, Integer value2) {
+            addCriterion("chemistry between", value1, value2, "chemistry");
+            return (Criteria) this;
+        }
+
+        public Criteria andChemistryNotBetween(Integer value1, Integer value2) {
+            addCriterion("chemistry not between", value1, value2, "chemistry");
+            return (Criteria) this;
+        }
+
+        public Criteria andBiologyIsNull() {
+            addCriterion("biology is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andBiologyIsNotNull() {
+            addCriterion("biology is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andBiologyEqualTo(Integer value) {
+            addCriterion("biology =", value, "biology");
+            return (Criteria) this;
+        }
+
+        public Criteria andBiologyNotEqualTo(Integer value) {
+            addCriterion("biology <>", value, "biology");
+            return (Criteria) this;
+        }
+
+        public Criteria andBiologyGreaterThan(Integer value) {
+            addCriterion("biology >", value, "biology");
+            return (Criteria) this;
+        }
+
+        public Criteria andBiologyGreaterThanOrEqualTo(Integer value) {
+            addCriterion("biology >=", value, "biology");
+            return (Criteria) this;
+        }
+
+        public Criteria andBiologyLessThan(Integer value) {
+            addCriterion("biology <", value, "biology");
+            return (Criteria) this;
+        }
+
+        public Criteria andBiologyLessThanOrEqualTo(Integer value) {
+            addCriterion("biology <=", value, "biology");
+            return (Criteria) this;
+        }
+
+        public Criteria andBiologyIn(List<Integer> values) {
+            addCriterion("biology in", values, "biology");
+            return (Criteria) this;
+        }
+
+        public Criteria andBiologyNotIn(List<Integer> values) {
+            addCriterion("biology not in", values, "biology");
+            return (Criteria) this;
+        }
+
+        public Criteria andBiologyBetween(Integer value1, Integer value2) {
+            addCriterion("biology between", value1, value2, "biology");
+            return (Criteria) this;
+        }
+
+        public Criteria andBiologyNotBetween(Integer value1, Integer value2) {
+            addCriterion("biology not between", value1, value2, "biology");
+            return (Criteria) this;
+        }
+
+        public Criteria andHistoryIsNull() {
+            addCriterion("history is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andHistoryIsNotNull() {
+            addCriterion("history is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andHistoryEqualTo(Integer value) {
+            addCriterion("history =", value, "history");
+            return (Criteria) this;
+        }
+
+        public Criteria andHistoryNotEqualTo(Integer value) {
+            addCriterion("history <>", value, "history");
+            return (Criteria) this;
+        }
+
+        public Criteria andHistoryGreaterThan(Integer value) {
+            addCriterion("history >", value, "history");
+            return (Criteria) this;
+        }
+
+        public Criteria andHistoryGreaterThanOrEqualTo(Integer value) {
+            addCriterion("history >=", value, "history");
+            return (Criteria) this;
+        }
+
+        public Criteria andHistoryLessThan(Integer value) {
+            addCriterion("history <", value, "history");
+            return (Criteria) this;
+        }
+
+        public Criteria andHistoryLessThanOrEqualTo(Integer value) {
+            addCriterion("history <=", value, "history");
+            return (Criteria) this;
+        }
+
+        public Criteria andHistoryIn(List<Integer> values) {
+            addCriterion("history in", values, "history");
+            return (Criteria) this;
+        }
+
+        public Criteria andHistoryNotIn(List<Integer> values) {
+            addCriterion("history not in", values, "history");
+            return (Criteria) this;
+        }
+
+        public Criteria andHistoryBetween(Integer value1, Integer value2) {
+            addCriterion("history between", value1, value2, "history");
+            return (Criteria) this;
+        }
+
+        public Criteria andHistoryNotBetween(Integer value1, Integer value2) {
+            addCriterion("history not between", value1, value2, "history");
             return (Criteria) this;
         }
     }
