@@ -15,6 +15,15 @@ public class StudentService {
 	
 	@Autowired
 	StudentMapper studentMapper;
+	
+	public List<Student> getSelective(Student student){
+		StudentExample example = new StudentExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andGradeEqualTo(student.getGrade());
+		List<Student> list = studentMapper.selectByExampleWithMajor(example);
+		return list;
+	}
+	
 
 //	查询所有
 	public List<Student> getAll() {

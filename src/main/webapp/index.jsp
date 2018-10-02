@@ -152,11 +152,12 @@
 		
 		<!-- 两个按钮 -->
 		<div class="row">
-			<div class="col-md-12">
-			<form class="form-inline">
+			<div class="col-md-8">
+			<form class="form-inline" id="select_form">
 			  <div class="form-group">
 			    <label>年级</label>
-			    <select class="form-control" name="mId" id="major_add_select"></select>
+			    <select class="form-control" name="grade" id="grade_select">
+			    </select>
 			  </div>
 			  <div class="form-group">
 			    <label>专业</label>
@@ -164,22 +165,24 @@
 			  </div>
 			  <div class="form-group">
 			    <label>班级</label>
-			    <select class="form-control" name="mId" id="major_add_select"></select>
+			    <select class="form-control" name="clas" id="clas_select"></select>
 			  </div>
 			  <div class="form-group">
 			    <label>学号</label>
-			    <input type="text" class="form-control" id="exampleInputName2" placeholder="151402">
+			    <input type="text" class="form-control" name="studentId">
 			  </div>
-			  <button type="submit" class="btn btn-warning">查询</button>
 			</form>
 			</div>
-			<div class="col-md-4 col-md-offset-8">
+			<div class="col-md-4">
+			  <button class="btn btn-warning" id="select">查询</button>
 				<button class="btn btn btn-success" id="find">查询所有</button>
 				<button class="btn btn-primary" id="stu_add_modl_btn">添加</button>
 				<button class="btn btn-danger" id="stu_del_all_btn">批量删除</button>
 			</div>
+			<!-- <div class="col-md-4 col-md-offset-8">
+			</div> -->
 		</div>
-		
+		<br>
 		<!-- 表格 -->
 		<div class="row">
 		
@@ -217,11 +220,27 @@
 	<script type="text/javascript">
 	var totalRecord, currentPage;
 	
-	
+		//获取三个下拉列表信息
 		$(function () {
 			getMajor("#major_select");
+			getGrade("#grade_select");
+			getClas("#clas_select");
 		});	
-	
+		
+		$("#select").click(function () {
+			$.ajax({
+				url:"${PATH}/stuSelect",
+				data:$("#select_form").serialize(),
+				type:"GET",
+				success:function(result){
+					build_stus_table(result);
+					build_page_info(result);
+					build_page_nav(result);
+					
+				}
+				
+			});
+		}); 
 	
 		//发送Ajax请求，要到分页数据
 		 $("#find").click(function () {
@@ -370,6 +389,33 @@
 				}
 			});
 		}
+		function getGrade(ele) {
+			$(ele).empty();
+			$.ajax({
+				url:"${PATH}/grades",
+				type:"GET",
+				success:function(result){
+					$.each(result.extend.grades,function(){
+						var optionEle = $("<option></option>").append(this.grade).attr("value",this.grade);
+						optionEle.appendTo(ele);
+					});
+				}
+			});
+		} 
+		function getClas(ele) {
+			$(ele).empty();
+			$.ajax({
+				url:"${PATH}/clases",
+				type:"GET",
+				success:function(result){
+					$.each(result.extend.clases,function(){
+						var optionEle = $("<option></option>").append(this.clas).attr("value",this.clas);
+						optionEle.appendTo(ele);
+					});
+				}
+			});
+		} 
+		
 		
 		//校验方法		
 		function validate_add_form() {
