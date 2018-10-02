@@ -18,6 +18,73 @@
 
 	<!-- <button id="find">查询</button> -->
 	
+	<!-- 显示成绩的模态框 -->
+	<div class="modal fade" id="subUpdateModel" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="myModalLabel">学生成绩修改</h4>
+				</div>
+				<div class="modal-body">
+					<form class="form-horizontal">
+						<div class="form-group">
+							<label class="col-sm-2 control-label">studentId</label>
+							<div class="col-sm-10">
+								<p class="form-control-static" id="sub_update_static">110</p>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">physics</label>
+							<div class="col-sm-10">
+								<input type="text" name="physics" class="form-control" id="update_physics_input" placeholder="物理">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">math</label>
+							<div class="col-sm-10">
+								<input type="text" name="math" class="form-control" id="update_math_input" placeholder="数学">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">english</label>
+							<div class="col-sm-10">
+								<input type="text" name="english" class="form-control" id="update_english_input" placeholder="英语">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">chemistry</label>
+							<div class="col-sm-10">
+								<input type="text" name="chemistry" class="form-control" id="update_chemistry_input" placeholder="化学">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">biology</label>
+							<div class="col-sm-10">
+								<input type="text" name="biology" class="form-control" id="update_biology_input" placeholder="生物">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">history</label>
+							<div class="col-sm-10">
+								<input type="text" name="history" class="form-control" id="update_history_input" placeholder="历史">
+							</div>
+						</div>
+						
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+					<button type="button" class="btn btn-primary" id="sub_update_btn">更新</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
 	<!-- 修改的模态框 -->
 	<div class="modal fade" id="stuUpdateModel" tabindex="-1" role="dialog"
 		aria-labelledby="myModalLabel">
@@ -35,7 +102,7 @@
 						<div class="form-group">
 							<label class="col-sm-2 control-label">studentName</label>
 							<div class="col-sm-10">
-								<p class="form-control-static" id="stu_update_static">email@example.com</p>
+								<p class="form-control-static" id="stu_update_static"></p>
 							</div>
 						</div>
 						<div class="form-group">
@@ -227,6 +294,7 @@
 			getClas("#clas_select");
 		});	
 		
+		//单个选择实现
 		$("#select").click(function () {
 			$.ajax({
 				url:"${PATH}/stuSelect",
@@ -241,6 +309,16 @@
 				
 			});
 		}); 
+		//点击学号弹出成绩模态框  然后显示
+		$(document).on("click",".btn-link",function(){
+			//alert($(this).attr("link_id"));
+			$("#subUpdateModel").modal({
+				backdrop:"static"
+			});
+		});
+		function getSubjects() {
+			
+		}
 	
 		//发送Ajax请求，要到分页数据
 		 $("#find").click(function () {
@@ -281,7 +359,8 @@
 			var stus = result.extend.pageInfo.list;
 			$.each(stus,function(index,item){
 				var checkBoxTd = $("<td><input type='checkbox' class='check_item'/></td>");
-				var studentIdTd = $("<td></td>").append(item.studentId);
+				//var studentIdTd = $("<td></td>").append(item.studentId);
+				var studentIdTd = $("<button></button>").addClass("btn btn-link").append(item.studentId);studentIdTd.attr("link_id",item.studentId);
 				var studentNameTd = $("<td></td>").append(item.studentName);
 				var genderTd = $("<td></td>").append(item.gender == 'M'?"男":"女");
 				var emailTd = $("<td></td>").append(item.email);
