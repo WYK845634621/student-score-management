@@ -24,6 +24,9 @@ public class StudentService {
 		criteria.andGradeEqualTo(student.getGrade());
 		criteria.andMIdEqualTo(student.getmId());
 		criteria.andClasEqualTo(student.getClas());
+		if (student.getStudentName() != null) {
+			criteria.andStudentNameEqualTo(student.getStudentName());
+		}
 		if (student.getStudentId()!= null) {
 			criteria.andStudentIdEqualTo(student.getStudentId());
 		}

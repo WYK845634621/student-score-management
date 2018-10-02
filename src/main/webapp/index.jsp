@@ -28,49 +28,49 @@
 						aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
-					<h4 class="modal-title" id="myModalLabel">学生成绩修改</h4>
+					<h4 class="modal-title" id="myModalLabel">学生成绩查看及修改</h4>
 				</div>
 				<div class="modal-body">
 					<form class="form-horizontal">
 						<div class="form-group">
 							<label class="col-sm-2 control-label">studentId</label>
-							<div class="col-sm-10">
+							<div class="col-sm-4">
 								<p class="form-control-static" id="sub_update_static">110</p>
 							</div>
 						</div>
 						<div class="form-group">
 							<label class="col-sm-2 control-label">physics</label>
-							<div class="col-sm-10">
+							<div class="col-sm-4">
 								<input type="text" name="physics" class="form-control" id="update_physics_input" placeholder="物理">
 							</div>
 						</div>
 						<div class="form-group">
 							<label class="col-sm-2 control-label">math</label>
-							<div class="col-sm-10">
+							<div class="col-sm-4">
 								<input type="text" name="math" class="form-control" id="update_math_input" placeholder="数学">
 							</div>
 						</div>
 						<div class="form-group">
 							<label class="col-sm-2 control-label">english</label>
-							<div class="col-sm-10">
+							<div class="col-sm-4">
 								<input type="text" name="english" class="form-control" id="update_english_input" placeholder="英语">
 							</div>
 						</div>
 						<div class="form-group">
 							<label class="col-sm-2 control-label">chemistry</label>
-							<div class="col-sm-10">
+							<div class="col-sm-4">
 								<input type="text" name="chemistry" class="form-control" id="update_chemistry_input" placeholder="化学">
 							</div>
 						</div>
 						<div class="form-group">
 							<label class="col-sm-2 control-label">biology</label>
-							<div class="col-sm-10">
+							<div class="col-sm-4">
 								<input type="text" name="biology" class="form-control" id="update_biology_input" placeholder="生物">
 							</div>
 						</div>
 						<div class="form-group">
 							<label class="col-sm-2 control-label">history</label>
-							<div class="col-sm-10">
+							<div class="col-sm-4">
 								<input type="text" name="history" class="form-control" id="update_history_input" placeholder="历史">
 							</div>
 						</div>
@@ -79,7 +79,7 @@
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-					<button type="button" class="btn btn-primary" id="sub_update_btn">更新</button>
+					<button type="button" class="btn btn-primary" id="sub_update_btn">保存成绩</button>
 				</div>
 			</div>
 		</div>
@@ -312,13 +312,41 @@
 		//点击学号弹出成绩模态框  然后显示
 		$(document).on("click",".btn-link",function(){
 			//alert($(this).attr("link_id"));
+			getSubjects($(this).attr("link_id"));
+			$("#sub_update_btn").attr("link_id",$(this).attr("link_id"));
 			$("#subUpdateModel").modal({
 				backdrop:"static"
 			});
 		});
-		function getSubjects() {
-			
+		function getSubjects(id) {
+			$.ajax({
+				url:"${PATH}/getSub/"+id,
+				type:"GET",
+				success:function(result){
+					var subData = result.extend.sub;
+					$("#sub_update_static").text(subData.sId);
+					$("#update_physics_input").val(subData.physics);
+					$("#update_math_input").val(subData.math);
+					$("#update_english_input").val(subData.english);
+					$("#update_chemistry_input").val(subData.chemistry);
+					$("#update_biology_input").val(subData.biology);
+					$("#update_history_input").val(subData.history);
+				}
+			});
 		}
+		$("#sub_update_btn").click(function () {
+			$.ajax({
+				url:"${PATH}/sub/"+$(this).attr("link_id"),
+				type:"PUT",
+				data:$("#subUpdateModel form").serialize(),
+				success:function(result){
+					//$("#stuUpdateModel").modal('hide');
+					//alert(result.msg);
+					$("#subUpdateModel").modal('hide');
+					to_page(currentPage); 
+				}
+			});
+		});
 	
 		//发送Ajax请求，要到分页数据
 		 $("#find").click(function () {
@@ -636,7 +664,7 @@
 		
 		//单个删除		
 		$(document).on("click",".del_btn",function(){
-			var studentName = $(this).parents("tr").find("td:eq(5)").text();
+			var studentName = $(this).parents("tr").find("td:eq(4)").text();
 			var studentId = $(this).attr("del_id");
 			if (confirm("确认删除【" + studentName +"】同学的信息吗？")) {
 				$.ajax({
@@ -669,7 +697,7 @@
 			var stuNames = "";
 			var del_idstr = "";
 			$.each($(".check_item:checked"),function(){
-				stuNames += $(this).parents("tr").find("td:eq(5)").text()+ ",";
+				stuNames += $(this).parents("tr").find("td:eq(4)").text()+ ",";
 				del_idstr +=  $(this).parents("tr").find("td:eq(4)").text()+ "-";
 			});
 			stuNames = stuNames.substring(0,stuNames.length-1);

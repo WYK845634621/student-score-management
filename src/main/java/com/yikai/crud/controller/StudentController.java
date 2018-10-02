@@ -23,13 +23,17 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.yikai.crud.bean.ComMsg;
 import com.yikai.crud.bean.Student;
+import com.yikai.crud.bean.Subject;
 import com.yikai.crud.service.StudentService;
+import com.yikai.crud.service.SubjectService;
 
 @Controller
 public class StudentController {
 	
 	@Autowired
 	StudentService studentService;
+	@Autowired
+	SubjectService subjectService;
 	
 //	单个多个二合一删除
 	@ResponseBody
@@ -101,8 +105,11 @@ public class StudentController {
 			return ComMsg.fail().add("errorFields", map);
 		}else {
 			studentService.saveStu(student);
+			System.out.println("需要保存的学生"+student);
+			List<Student> list = studentService.getSelective(student);
+			Student newStudent = list.get(0);
+			subjectService.saveSub(new Subject(newStudent.getStudentId(), 0, 0, 0, 0, 0, 0));
 			return ComMsg.success();
-			
 		}
 	}
 	
