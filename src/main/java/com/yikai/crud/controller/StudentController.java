@@ -120,7 +120,7 @@ public class StudentController {
 		PageHelper.startPage(pn, 12);
 		List<Student> stus = studentService.getAll();
 		//用PageInfo对结果进行包装
-		PageInfo page = new PageInfo(stus,7);
+		PageInfo page = new PageInfo(stus,5);
 		return ComMsg.success().add("pageInfo", page);
 	}
 	
@@ -135,20 +135,11 @@ public class StudentController {
 			System.out.println(studen);
 		}
 		//用PageInfo对结果进行包装
-		PageInfo page = new PageInfo(stus,7);
+		PageInfo page = new PageInfo(stus,5);
 		return ComMsg.success().add("pageInfo", page);
 	}
 
-//	@RequestMapping("/stus")
-	public String getStus(@RequestParam(value="pn", defaultValue="1") Integer pn, Model model){
-//		使用分页插件进行设置  每页大小  起始页
-		PageHelper.startPage(pn, 12);
-		List<Student> stus = studentService.getAll();
-		//用PageInfo对结果进行包装
-		PageInfo page = new PageInfo(stus,7);
-		model.addAttribute("pageInfo", page);
-		return "list";
-	}
+
 	
 	
 	

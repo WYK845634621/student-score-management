@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>所有学生列表</title>
+<title>学生成绩列表</title>
 <%  pageContext.setAttribute("PATH",request.getContextPath()); %>
 <!-- 引入jQuery -->
 <script type="text/javascript" src="${PATH }/static/js/jquery-1.12.4.min.js"></script>
@@ -33,43 +33,43 @@
 				<div class="modal-body">
 					<form class="form-horizontal">
 						<div class="form-group">
-							<label class="col-sm-2 control-label">studentId</label>
+							<label class="col-sm-2 control-label">学号</label>
 							<div class="col-sm-4">
 								<p class="form-control-static" id="sub_update_static">110</p>
 							</div>
 						</div>
 						<div class="form-group">
-							<label class="col-sm-2 control-label">physics</label>
+							<label class="col-sm-2 control-label">大学物理</label>
 							<div class="col-sm-4">
 								<input type="text" name="physics" class="form-control" id="update_physics_input" placeholder="物理">
 							</div>
 						</div>
 						<div class="form-group">
-							<label class="col-sm-2 control-label">math</label>
+							<label class="col-sm-2 control-label">高数</label>
 							<div class="col-sm-4">
 								<input type="text" name="math" class="form-control" id="update_math_input" placeholder="数学">
 							</div>
 						</div>
 						<div class="form-group">
-							<label class="col-sm-2 control-label">english</label>
+							<label class="col-sm-2 control-label">英语</label>
 							<div class="col-sm-4">
 								<input type="text" name="english" class="form-control" id="update_english_input" placeholder="英语">
 							</div>
 						</div>
 						<div class="form-group">
-							<label class="col-sm-2 control-label">chemistry</label>
+							<label class="col-sm-2 control-label">化学</label>
 							<div class="col-sm-4">
 								<input type="text" name="chemistry" class="form-control" id="update_chemistry_input" placeholder="化学">
 							</div>
 						</div>
 						<div class="form-group">
-							<label class="col-sm-2 control-label">biology</label>
+							<label class="col-sm-2 control-label">生物</label>
 							<div class="col-sm-4">
 								<input type="text" name="biology" class="form-control" id="update_biology_input" placeholder="生物">
 							</div>
 						</div>
 						<div class="form-group">
-							<label class="col-sm-2 control-label">history</label>
+							<label class="col-sm-2 control-label">历史</label>
 							<div class="col-sm-4">
 								<input type="text" name="history" class="form-control" id="update_history_input" placeholder="历史">
 							</div>
@@ -100,39 +100,39 @@
 				<div class="modal-body">
 					<form class="form-horizontal">
 						<div class="form-group">
-							<label class="col-sm-2 control-label">studentName</label>
+							<label class="col-sm-2 control-label">姓名</label>
 							<div class="col-sm-10">
 								<p class="form-control-static" id="stu_update_static"></p>
 							</div>
 						</div>
 						<div class="form-group">
-							<label class="col-sm-2 control-label">gender</label>
+							<label class="col-sm-2 control-label">性别</label>
 							<div class="col-sm-10">
 								<label class="radio-inline"> <input type="radio" name="gender" id="gender1_update_input" value="M" checked="checked">男</label> 
 								<label class="radio-inline"> <input type="radio" name="gender" id="gender2_update_input" value="F">女</label>
 							</div>
 						</div>
 						<div class="form-group">
-							<label class="col-sm-2 control-label">email</label>
+							<label class="col-sm-2 control-label">邮箱</label>
 							<div class="col-sm-10">
 								<input type="text" name="email" class="form-control" id="update_email_input" placeholder="邮箱">
 								<span class="help-block"></span>
 							</div>
 						</div>
 						<div class="form-group">
-							<label class="col-sm-2 control-label">grade</label>
+							<label class="col-sm-2 control-label">年级</label>
 							<div class="col-sm-10">
 								<input type="text" name="grade" class="form-control" id="update_grade_input" placeholder="年级">
 							</div>
 						</div>
 						<div class="form-group">
-							<label class="col-sm-2 control-label">clas</label>
+							<label class="col-sm-2 control-label">班级</label>
 							<div class="col-sm-10">
 								<input type="text" name="clas" class="form-control" id="update_clas_input" placeholder="班级">
 							</div>
 						</div>
 						<div class="form-group">
-							<label class="col-sm-2 control-label">majorName</label>
+							<label class="col-sm-2 control-label">专业</label>
 							<div class="col-sm-3">
 								<select class="form-control" name="mId" id="major_update_select"></select>
 							</div>
@@ -163,40 +163,46 @@
 				<div class="modal-body">
 					<form class="form-horizontal">
 						<div class="form-group">
-							<label class="col-sm-2 control-label">studentName</label>
+							<label class="col-sm-2 control-label">学号</label>
+							<div class="col-sm-10">
+								<input type="text" name="studentId" class="form-control" id="stu_id_input" placeholder="学号">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">姓名</label>
 							<div class="col-sm-10">
 								<input type="text" name="studentName" class="form-control" id="stu_name_input" placeholder="学生姓名">
 								<span class="help-block"></span>
 							</div>
 						</div>
 						<div class="form-group">
-							<label class="col-sm-2 control-label">gender</label>
+							<label class="col-sm-2 control-label">性别</label>
 							<div class="col-sm-10">
 								<label class="radio-inline"> <input type="radio" name="gender" id="gender1_add_input" value="M" checked="checked">男</label> 
 								<label class="radio-inline"> <input type="radio" name="gender" id="gender2_add_input" value="F">女</label>
 							</div>
 						</div>
 						<div class="form-group">
-							<label class="col-sm-2 control-label">email</label>
+							<label class="col-sm-2 control-label">邮箱</label>
 							<div class="col-sm-10">
 								<input type="text" name="email" class="form-control" id="stu_email_input" placeholder="邮箱">
 								<span class="help-block"></span>
 							</div>
 						</div>
 						<div class="form-group">
-							<label class="col-sm-2 control-label">grade</label>
+							<label class="col-sm-2 control-label">年级</label>
 							<div class="col-sm-10">
 								<input type="text" name="grade" class="form-control" id="stu_grade_input" placeholder="年级">
 							</div>
 						</div>
 						<div class="form-group">
-							<label class="col-sm-2 control-label">clas</label>
+							<label class="col-sm-2 control-label">班级</label>
 							<div class="col-sm-10">
 								<input type="text" name="clas" class="form-control" id="stu_clas_input" placeholder="班级">
 							</div>
 						</div>
 						<div class="form-group">
-							<label class="col-sm-2 control-label">majorName</label>
+							<label class="col-sm-2 control-label">专业</label>
 							<div class="col-sm-3">
 								<select class="form-control" name="mId" id="major_add_select"></select>
 							</div>
@@ -213,9 +219,9 @@
 	</div>
 
 
-	<div class="container">
+	<div class="container" style="background-color: #7FFFD4">
 		<!-- 标题 -->
-		<div class="row"><div class="col-md-12"><h1 style="text-align: center;">come here hey we girl</h1></div></div>	<br>
+		<div class="row"><div class="col-md-12"><h1 style="text-align: center;">学生成绩信息查询</h1></div></div>	<br>
 		
 		<!-- 两个按钮 -->
 		<div class="row">
@@ -257,13 +263,13 @@
 				<table class="table table-hover" id="stus_table">
 					<thead>
 					<tr><th><input type="checkbox" id="check_all"></input></th>
-					<th>grade</th>
-					<th>majorName</th>
-					<th>clas</th>
-					<th>studentId</th>
-					<th>studentName</th>
-					<th>gender</th>
-					<th>email</th>
+					<th>年级</th>
+					<th>专业</th>
+					<th>班级</th>
+					<th>学号</th>
+					<th>姓名</th>
+					<th>性别</th>
+					<th>邮箱</th>
 					<th>操作</th></tr>
 					</thead>
 					<tbody>
@@ -582,9 +588,9 @@
 		
 		//点击新增按钮处理事件	先校验 然后提交
 		$("#stu_save_btn").click(function () {
-			/* if (!validate_add_form()) {
+			 if (!validate_add_form()) {
 				return false;
-			} */
+			} 
 			if ($(this).attr("ajax-validate") == "error") {
 				return false;
 			}

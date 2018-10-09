@@ -40,7 +40,7 @@ public class MapperTest {
 		StudentMapper mapper = sqlSession.getMapper(StudentMapper.class);
 		for(int i =0 ; i < 7; i++){
 			String uuid = UUID.randomUUID().toString().substring(0, 6);
-			mapper.insertSelective(new Student(16010101 + i, uuid, "M", "1010152@qq.com", "2016", 1, "160101"));
+			mapper.insertSelective(new Student(16010101 + i, uuid, "F", "1646152@qq.com", "2016", 1, "160101"));
 		}
 		System.out.println("批量执行完毕");
 		
@@ -50,7 +50,7 @@ public class MapperTest {
 	public void test2(){
 		subjectMapper = sqlSession.getMapper(SubjectMapper.class);
 		for(int i =0 ; i < 6; i++){
-			subjectMapper.insert(new Subject(16020101 + i, 70+i, 70+i, 70+i, 65+i, 80+i, 90+i));
+			subjectMapper.insert(new Subject(16080101 + i, 60+i, 70+i, 70+i, 65+i, 80+i, 90+i));
 		}
 		System.out.println("批量执行完毕");
 		
